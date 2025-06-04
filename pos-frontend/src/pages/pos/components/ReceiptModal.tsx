@@ -8,12 +8,11 @@ interface ReceiptModalProps {
 
 const ReceiptModal: React.FC<ReceiptModalProps> = ({ onClose }) => {
   const { 
-    state: { items, customer, discounts, payments }, 
+    state: { items, customer, payments }, 
     subtotal,
     taxAmount,
     discountAmount,
     total,
-    totalPaid,
     balance 
   } = useCart();
 
@@ -45,7 +44,7 @@ const ReceiptModal: React.FC<ReceiptModalProps> = ({ onClose }) => {
         <div className="p-4 bg-white" id="receipt-content">
           <div className="text-center mb-4">
             <h2 className="text-xl font-bold">RetailPro Store</h2>
-            <p className="text-sm text-gray-600">123 Main Street, Anytown USA</p>
+            <p className="text-sm text-gray-600">Claro M. Recto Avenue, Lapasan, Cagayan de Oro City</p>
             <p className="text-sm text-gray-600">Tel: (555) 123-4567</p>
           </div>
           
@@ -84,9 +83,9 @@ const ReceiptModal: React.FC<ReceiptModalProps> = ({ onClose }) => {
               <div key={item.product.id} className="flex justify-between text-sm mb-1">
                 <span className="flex-1 truncate">{item.product.name}</span>
                 <div className="flex">
-                  <span className="w-16 text-right">${item.price.toFixed(2)}</span>
-                  <span className="w-8 text-center">{item.quantity}</span>
-                  <span className="w-16 text-right">${(item.price * item.quantity).toFixed(2)}</span>
+                  <span className="w-16 text-right">₱{item.price.toFixed(2)}</span>
+                  <span className="w-8 text-center">₱{item.quantity}</span>
+                  <span className="w-16 text-right">₱{(item.price * item.quantity).toFixed(2)}</span>
                 </div>
               </div>
             ))}
@@ -95,24 +94,24 @@ const ReceiptModal: React.FC<ReceiptModalProps> = ({ onClose }) => {
           <div className="border-t border-dashed pt-2 mb-4">
             <div className="flex justify-between text-sm mb-1">
               <span>Subtotal:</span>
-              <span>${subtotal.toFixed(2)}</span>
+              <span>₱{subtotal.toFixed(2)}</span>
             </div>
             
             {discountAmount > 0 && (
               <div className="flex justify-between text-sm mb-1">
                 <span>Discounts:</span>
-                <span>-${discountAmount.toFixed(2)}</span>
+                <span>-₱{discountAmount.toFixed(2)}</span>
               </div>
             )}
             
             <div className="flex justify-between text-sm mb-1">
               <span>Tax (8.5%):</span>
-              <span>${taxAmount.toFixed(2)}</span>
+              <span>₱{taxAmount.toFixed(2)}</span>
             </div>
             
             <div className="flex justify-between font-bold mb-3">
               <span>Total:</span>
-              <span>${total.toFixed(2)}</span>
+              <span>₱{total.toFixed(2)}</span>
             </div>
             
             {payments.map((payment, index) => (
@@ -125,14 +124,14 @@ const ReceiptModal: React.FC<ReceiptModalProps> = ({ onClose }) => {
                   {payment.type === 'loyalty' && 'Loyalty Points'}
                   {payment.reference && ` (${payment.reference})`}:
                 </span>
-                <span>${payment.amount.toFixed(2)}</span>
+                <span>₱{payment.amount.toFixed(2)}</span>
               </div>
             ))}
             
             {balance > 0 && (
               <div className="flex justify-between text-sm font-medium mt-1">
                 <span>Change:</span>
-                <span>${balance.toFixed(2)}</span>
+                <span>₱{balance.toFixed(2)}</span>
               </div>
             )}
           </div>

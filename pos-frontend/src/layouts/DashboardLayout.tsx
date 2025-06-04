@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Outlet, NavLink, useNavigate } from 'react-router-dom';
 import { 
   ShoppingBag, 
@@ -63,7 +63,7 @@ const DashboardLayout = () => {
           <div className="flex-1 h-0 pt-5 pb-4 overflow-y-auto">
             <div className="flex-shrink-0 flex items-center px-4">
               <ShoppingBag className="h-8 w-8 text-white" />
-              <span className="ml-2 text-white text-xl font-bold">RetailPro</span>
+              <span className="ml-2 text-white text-xl font-bold">Retail POS</span>
             </div>
             <nav className="mt-5 px-2 space-y-1">
               {navItems.map((item) => (
@@ -109,7 +109,7 @@ const DashboardLayout = () => {
             <div className="flex-1 flex flex-col pt-5 pb-4 overflow-y-auto">
               <div className="flex items-center flex-shrink-0 px-4">
                 <ShoppingBag className="h-8 w-8 text-white" />
-                <span className="ml-2 text-white text-xl font-bold">RetailPro</span>
+                <span className="ml-2 text-white text-xl font-bold">Retail POS</span>
               </div>
               <nav className="mt-8 flex-1 px-2 space-y-1">
                 {navItems.map((item) => (

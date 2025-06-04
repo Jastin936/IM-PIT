@@ -20,22 +20,22 @@ interface AuthContextType {
 const MOCK_USERS = [
   {
     id: '1',
-    name: 'Admin User',
-    email: 'admin@example.com',
+    name: 'ejine',
+    email: 'ejine@gmail.com',
     password: 'admin123',
     role: 'admin' as const,
   },
   {
     id: '2',
-    name: 'Cashier User',
-    email: 'cashier@example.com',
+    name: 'kurt',
+    email: 'kurt@gmail.com',
     password: 'cashier123',
     role: 'cashier' as const,
   },
   {
     id: '3',
-    name: 'Manager User',
-    email: 'manager@example.com',
+    name: 'mark',
+    email: 'mark@gmail.com',
     password: 'manager123',
     role: 'manager' as const,
   },

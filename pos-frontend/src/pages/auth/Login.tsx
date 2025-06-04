@@ -111,21 +111,11 @@ const Login = () => {
             <div className="w-full border-t border-gray-300"></div>
           </div>
           <div className="relative flex justify-center text-sm">
-            <span className="px-2 bg-white text-gray-500">Demo Accounts</span>
+           
           </div>
         </div>
 
-        <div className="mt-4 grid grid-cols-1 gap-3 text-sm">
-          <div className="border rounded-md p-2 text-center">
-            <p className="font-medium">Admin: admin@example.com / admin123</p>
-          </div>
-          <div className="border rounded-md p-2 text-center">
-            <p className="font-medium">Cashier: cashier@example.com / cashier123</p>
-          </div>
-          <div className="border rounded-md p-2 text-center">
-            <p className="font-medium">Manager: manager@example.com / manager123</p>
-          </div>
-        </div>
+       
       </div>
     </div>
   );

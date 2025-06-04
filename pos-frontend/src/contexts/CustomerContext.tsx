@@ -24,8 +24,8 @@ interface CustomerContextType {
 const MOCK_CUSTOMERS: Customer[] = [
   {
     id: '1',
-    name: 'John Smith',
-    email: 'john.smith@example.com',
+    name: 'Kurt Waga',
+    email: 'kurt.waga@example.com',
     phone: '555-123-4567',
     loyaltyPoints: 240,
     totalSpent: 1250.75,
@@ -33,8 +33,8 @@ const MOCK_CUSTOMERS: Customer[] = [
   },
   {
     id: '2',
-    name: 'Sarah Johnson',
-    email: 'sarah.j@example.com',
+    name: 'Ejine Mangcobihon',
+    email: 'ejine.m@example.com',
     phone: '555-234-5678',
     loyaltyPoints: 680,
     totalSpent: 3450.25,
@@ -42,8 +42,8 @@ const MOCK_CUSTOMERS: Customer[] = [
   },
   {
     id: '3',
-    name: 'Michael Brown',
-    email: 'michael.b@example.com',
+    name: 'Zhoulo Pagalan',
+    email: 'zhoulo.p@example.com',
     phone: '555-345-6789',
     loyaltyPoints: 120,
     totalSpent: 780.50,
@@ -51,22 +51,14 @@ const MOCK_CUSTOMERS: Customer[] = [
   },
   {
     id: '4',
-    name: 'Emily Davis',
-    email: 'emily.d@example.com',
+    name: 'Mark Olaco',
+    email: 'olaco.m@example.com',
     phone: '555-456-7890',
     loyaltyPoints: 410,
     totalSpent: 2150.00,
     memberSince: '2023-01-30',
   },
-  {
-    id: '5',
-    name: 'David Wilson',
-    email: 'david.w@example.com',
-    phone: '555-567-8901',
-    loyaltyPoints: 890,
-    totalSpent: 4560.75,
-    memberSince: '2022-05-17',
-  },
+  
 ];
 
 // Create context

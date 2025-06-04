@@ -1,13 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useCustomers } from '../../contexts/CustomerContext';
+import { FaPesoSign } from 'react-icons/fa6';
+
+
 import { 
   Search, 
-  Plus, 
+  Plus,
   User, 
   Mail, 
   Phone, 
-  Gift, 
-  DollarSign, 
+  Gift,  
   Calendar,
   Edit,
   Trash2 
@@ -121,7 +123,7 @@ const Customers = () => {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center text-sm font-medium text-gray-900">
-                        <DollarSign className="h-4 w-4 mr-1 text-success-500" />
+                        <FaPesoSign className="h-4 w-4 mr-1 text-success-500" />
                         {customer.totalSpent.toFixed(2)}
                       </div>
                       <div className="text-xs text-gray-500 mt-1">

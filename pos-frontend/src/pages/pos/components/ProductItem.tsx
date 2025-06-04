@@ -41,7 +41,7 @@ const ProductItem: React.FC<ProductItemProps> = ({ product, onAddToCart }) => {
         <h3 className="text-sm font-medium text-gray-900 truncate">{product.name}</h3>
         <p className="text-gray-500 text-xs mb-2">{product.category}</p>
         <div className="flex items-center justify-between">
-          <p className="text-lg font-semibold text-gray-900">${product.price.toFixed(2)}</p>
+          <p className="text-lg font-semibold text-gray-900">₱{product.price.toFixed(2)}</p>
           <button
             className="p-2 bg-primary-500 rounded-full text-white hover:bg-primary-600 focus:outline-none focus:ring-2 focus:ring-primary-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed"
             onClick={onAddToCart}

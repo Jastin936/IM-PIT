@@ -22,6 +22,14 @@ import CustomerSearch from './components/CustomerSearch';
 import PaymentModal from './components/PaymentModal';
 import ReceiptModal from './components/ReceiptModal';
 
+const formatPeso = (value: number) => {
+  return new Intl.NumberFormat('en-PH', {
+    style: 'currency',
+    currency: 'PHP',
+    minimumFractionDigits: 2,
+  }).format(value);
+};
+
 const Pos = () => {
   const [searchQuery, setSearchQuery] = useState('');
   const [showCustomerSearch, setShowCustomerSearch] = useState(false);
@@ -54,8 +62,6 @@ const Pos = () => {
   };
 
   const handleScanBarcode = () => {
-    // In a real implementation, this would connect to a barcode scanner
-    // For demo purposes, we'll just show a prompt
     const barcode = prompt('Enter product barcode:');
     if (barcode) {
       const product = products.find(p => p.barcode === barcode);
@@ -76,8 +82,6 @@ const Pos = () => {
     if (selectedCustomer) {
       setCustomer(selectedCustomer);
       setShowCustomerSearch(false);
-      
-      // If customer has loyalty, automatically apply member discount
       if (selectedCustomer.loyaltyPoints > 100) {
         const memberDiscountId = discounts.find(d => d.name.includes('Member'))?.id;
         if (memberDiscountId) {
@@ -92,22 +96,20 @@ const Pos = () => {
       alert('Cart is empty. Add items before checkout.');
       return;
     }
-
     setShowPaymentModal(true);
   };
 
   const handlePaymentComplete = async () => {
     setIsCheckingOut(true);
     setShowPaymentModal(false);
-    
     try {
       await completeTransaction();
       setCheckoutSuccess(true);
       setShowReceiptModal(true);
     } catch (error) {
       console.error('Transaction failed:', error);
-      alert('Transaction failed. Please try again.');
     } finally {
+      alert('Transaction failed. Please try again.');
       setIsCheckingOut(false);
     }
   };
@@ -115,9 +117,7 @@ const Pos = () => {
   return (
     <div className="h-full flex flex-col">
       <h1 className="text-2xl font-bold text-gray-900 mb-4">Point of Sale</h1>
-      
       <div className="flex flex-col md:flex-row h-full space-y-4 md:space-y-0 md:space-x-4 animate-fade-in">
-        {/* Products Section */}
         <div className="md:w-2/3 bg-white rounded-lg shadow-sm p-4 flex flex-col">
           <div className="flex items-center mb-4">
             <div className="relative flex-1">
@@ -132,15 +132,11 @@ const Pos = () => {
                 onChange={handleSearchChange}
               />
             </div>
-            <button 
-              className="ml-2 btn btn-primary flex items-center"
-              onClick={handleScanBarcode}
-            >
+            <button className="ml-2 btn btn-primary flex items-center" onClick={handleScanBarcode}>
               <Barcode className="h-5 w-5 mr-1" />
               <span className="hidden sm:inline">Scan</span>
             </button>
           </div>
-
           {loading ? (
             <div className="flex-1 flex items-center justify-center">
               <p className="text-gray-500">Loading products...</p>
@@ -153,18 +149,12 @@ const Pos = () => {
                 </div>
               ) : (
                 filteredProducts.map(product => (
-                  <ProductItem 
-                    key={product.id} 
-                    product={product} 
-                    onAddToCart={() => addItem(product, 1)} 
-                  />
+                  <ProductItem key={product.id} product={product} onAddToCart={() => addItem(product, 1)} />
                 ))
               )}
             </div>
           )}
         </div>
-
-        {/* Cart Section */}
         <div className="md:w-1/3 bg-white rounded-lg shadow-sm p-4 flex flex-col">
           <div className="flex items-center justify-between mb-4">
             <div className="flex items-center">
@@ -173,8 +163,6 @@ const Pos = () => {
             </div>
             <div className="text-sm text-gray-500">{itemCount} items</div>
           </div>
-
-          {/* Customer Selection */}
           <div className="mb-4">
             {customer ? (
               <div className="flex items-center justify-between bg-primary-50 p-2 rounded-md">
@@ -183,29 +171,21 @@ const Pos = () => {
                   <div>
                     <p className="text-sm font-medium text-gray-900">{customer.name}</p>
                     <p className="text-xs text-gray-500">
-                      {customer.loyaltyPoints} points | ${customer.totalSpent.toFixed(2)} spent
+                      {customer.loyaltyPoints} points | {formatPeso(customer.totalSpent)} spent
                     </p>
                   </div>
                 </div>
-                <button 
-                  onClick={handleRemoveCustomer}
-                  className="text-gray-400 hover:text-gray-600"
-                >
+                <button onClick={handleRemoveCustomer} className="text-gray-400 hover:text-gray-600">
                   <X className="h-4 w-4" />
                 </button>
               </div>
             ) : (
-              <button
-                className="w-full btn btn-ghost flex items-center justify-center text-sm"
-                onClick={() => setShowCustomerSearch(true)}
-              >
+              <button className="w-full btn btn-ghost flex items-center justify-center text-sm" onClick={() => setShowCustomerSearch(true)}>
                 <User className="h-4 w-4 mr-2" />
                 Add Customer
               </button>
             )}
           </div>
-
-          {/* Cart Items */}
           <div className="flex-1 overflow-y-auto mb-4">
             {items.length === 0 ? (
               <div className="h-full flex flex-col items-center justify-center py-8 text-center">
@@ -218,11 +198,7 @@ const Pos = () => {
                 {items.map((item) => (
                   <div key={item.product.id} className="flex items-center">
                     {item.product.image ? (
-                      <img 
-                        src={item.product.image} 
-                        alt={item.product.name} 
-                        className="w-12 h-12 object-cover rounded-md"
-                      />
+                      <img src={item.product.image} alt={item.product.name} className="w-12 h-12 object-cover rounded-md" />
                     ) : (
                       <div className="w-12 h-12 bg-gray-100 rounded-md flex items-center justify-center">
                         <ShoppingCart className="h-6 w-6 text-gray-400" />
@@ -230,28 +206,17 @@ const Pos = () => {
                     )}
                     <div className="ml-3 flex-1">
                       <p className="text-sm font-medium text-gray-900">{item.product.name}</p>
-                      <p className="text-sm text-gray-500">${item.price.toFixed(2)}</p>
+                      <p className="text-sm text-gray-500">{formatPeso(item.price)}</p>
                     </div>
                     <div className="flex items-center">
-                      <button
-                        className="p-1 text-gray-400 hover:text-gray-600"
-                        onClick={() => updateQuantity(item.product.id, item.quantity - 1)}
-                        disabled={item.quantity <= 1}
-                      >
+                      <button className="p-1 text-gray-400 hover:text-gray-600" onClick={() => updateQuantity(item.product.id, item.quantity - 1)} disabled={item.quantity <= 1}>
                         <Minus className="h-4 w-4" />
                       </button>
                       <span className="w-8 text-center text-sm">{item.quantity}</span>
-                      <button
-                        className="p-1 text-gray-400 hover:text-gray-600"
-                        onClick={() => updateQuantity(item.product.id, item.quantity + 1)}
-                        disabled={item.quantity >= item.product.stockQuantity}
-                      >
+                      <button className="p-1 text-gray-400 hover:text-gray-600" onClick={() => updateQuantity(item.product.id, item.quantity + 1)} disabled={item.quantity >= item.product.stockQuantity}>
                         <Plus className="h-4 w-4" />
                       </button>
-                      <button
-                        className="p-1 ml-1 text-gray-400 hover:text-error-500"
-                        onClick={() => removeItem(item.product.id)}
-                      >
+                      <button className="p-1 ml-1 text-gray-400 hover:text-error-500" onClick={() => removeItem(item.product.id)}>
                         <Trash2 className="h-4 w-4" />
                       </button>
                     </div>
@@ -260,8 +225,6 @@ const Pos = () => {
               </div>
             )}
           </div>
-
-          {/* Discounts */}
           <div className="mb-4">
             <div className="flex items-center mb-2">
               <Tag className="h-4 w-4 text-gray-500 mr-2" />
@@ -277,43 +240,36 @@ const Pos = () => {
                     onChange={(e) => applyDiscount(discount.id, e.target.checked)}
                     className="h-4 w-4 text-primary-600 focus:ring-primary-500 border-gray-300 rounded"
                   />
-                  <label 
-                    htmlFor={`discount-${discount.id}`} 
-                    className="ml-2 text-sm text-gray-700 flex-1"
-                  >
+                  <label htmlFor={`discount-${discount.id}`} className="ml-2 text-sm text-gray-700 flex-1">
                     {discount.name}
                   </label>
                   <span className="text-sm text-gray-500">
-                    {discount.type === 'percentage' ? `${discount.value}%` : `$${discount.value.toFixed(2)}`}
+                    {discount.type === 'percentage' ? `${discount.value}%` : formatPeso(discount.value)}
                   </span>
                 </div>
               ))}
             </div>
           </div>
-
-          {/* Order Summary */}
           <div className="border-t border-gray-100 pt-4 mb-4">
             <div className="flex justify-between mb-2">
               <span className="text-sm text-gray-500">Subtotal</span>
-              <span className="text-sm font-medium">${subtotal.toFixed(2)}</span>
+              <span className="text-sm font-medium">{formatPeso(subtotal)}</span>
             </div>
             {discountAmount > 0 && (
               <div className="flex justify-between mb-2">
                 <span className="text-sm text-gray-500">Discount</span>
-                <span className="text-sm font-medium text-success-600">-${discountAmount.toFixed(2)}</span>
+                <span className="text-sm font-medium text-success-600">-{formatPeso(discountAmount)}</span>
               </div>
             )}
             <div className="flex justify-between mb-2">
               <span className="text-sm text-gray-500">Tax (8.5%)</span>
-              <span className="text-sm font-medium">${taxAmount.toFixed(2)}</span>
+              <span className="text-sm font-medium">{formatPeso(taxAmount)}</span>
             </div>
             <div className="flex justify-between font-medium">
               <span className="text-base text-gray-900">Total</span>
-              <span className="text-base text-gray-900">${total.toFixed(2)}</span>
+              <span className="text-base text-gray-900">{formatPeso(total)}</span>
             </div>
           </div>
-
-          {/* Checkout Button */}
           <div>
             <button
               className="w-full btn btn-primary flex items-center justify-center"
@@ -346,27 +302,13 @@ const Pos = () => {
           </div>
         </div>
       </div>
-
-      {/* Customer Search Modal */}
       {showCustomerSearch && (
-        <CustomerSearch 
-          onClose={() => setShowCustomerSearch(false)} 
-          onSelect={handleSelectCustomer}
-        />
+        <CustomerSearch onClose={() => setShowCustomerSearch(false)} onSelect={handleSelectCustomer} />
       )}
-
-      {/* Payment Modal */}
       {showPaymentModal && (
-        <PaymentModal 
-          onClose={() => setShowPaymentModal(false)}
-          onComplete={handlePaymentComplete}
-        />
+        <PaymentModal onClose={() => setShowPaymentModal(false)} onComplete={handlePaymentComplete} />
       )}
-
-      {/* Receipt Modal */}
-      {showReceiptModal && (
-        <ReceiptModal onClose={() => setShowReceiptModal(false)} />
-      )}
+      {showReceiptModal && <ReceiptModal onClose={() => setShowReceiptModal(false)} />}
     </div>
   );
 };

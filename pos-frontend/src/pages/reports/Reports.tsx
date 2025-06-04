@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { 
   BarChart2, 
   TrendingUp,
@@ -119,7 +119,7 @@ const Reports = () => {
             <h3 className="text-lg font-medium text-gray-900">Total Sales</h3>
             <TrendingUp className="h-5 w-5 text-success-500" />
           </div>
-          <p className="text-3xl font-bold text-gray-900">${currentData.sales.toFixed(2)}</p>
+          <p className="text-3xl font-bold text-gray-900">₱{currentData.sales.toFixed(2)}</p>
           <p className="text-sm text-gray-500 mt-1">
             {dateRange === 'today' ? 'Today' : dateRange === 'week' ? 'This Week' : 'This Month'}
           </p>
@@ -141,7 +141,7 @@ const Reports = () => {
             <h3 className="text-lg font-medium text-gray-900">Avg. Ticket</h3>
             <BarChart2 className="h-5 w-5 text-accent-500" />
           </div>
-          <p className="text-3xl font-bold text-gray-900">${currentData.avgTicket.toFixed(2)}</p>
+          <p className="text-3xl font-bold text-gray-900">₱{currentData.avgTicket.toFixed(2)}</p>
           <p className="text-sm text-gray-500 mt-1">
             {dateRange === 'today' ? 'Today' : dateRange === 'week' ? 'This Week' : 'This Month'}
           </p>
@@ -176,7 +176,7 @@ const Reports = () => {
                     {product.quantity}
                   </td>
                   <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 text-right">
-                    ${product.amount.toFixed(2)}
+                    ₱{product.amount.toFixed(2)}
                   </td>
                 </tr>
               ))}

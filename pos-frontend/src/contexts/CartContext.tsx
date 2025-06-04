@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useReducer } from 'react';
+import React, { createContext, useContext, useReducer } from 'react';
 import { Product, useProducts } from './ProductContext';
 import { Customer, useCustomers } from './CustomerContext';
 
@@ -72,9 +72,9 @@ const AVAILABLE_DISCOUNTS: Discount[] = [
   },
   {
     id: '2',
-    name: '$5 Off Purchase',
+    name: '₱50 Off Purchase',
     type: 'fixed',
-    value: 5,
+    value: 50,
     applied: false,
   },
   {

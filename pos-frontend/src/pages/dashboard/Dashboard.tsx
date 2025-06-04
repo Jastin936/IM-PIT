@@ -1,16 +1,13 @@
-import React from 'react';
 import { useAuth } from '../../contexts/AuthContext';
 import { useProducts } from '../../contexts/ProductContext';
 import { useCustomers } from '../../contexts/CustomerContext';
+import { FaPesoSign } from 'react-icons/fa6';
 import { 
-  TrendingUp, 
-  Users, 
+  TrendingUp,
   ShoppingBag, 
   AlertTriangle,
-  DollarSign,
   ShoppingCart,
   UserCheck,
-  BarChart2
 } from 'lucide-react';
 
 const Dashboard = () => {
@@ -37,11 +34,10 @@ const Dashboard = () => {
 
   // Mock transaction data
   const recentTransactions = [
-    { id: 'TX12345', customer: 'John Smith', total: 124.99, items: 5, date: '2025-06-08 14:30' },
-    { id: 'TX12344', customer: 'Sarah Johnson', total: 89.50, items: 3, date: '2025-06-08 13:15' },
-    { id: 'TX12343', customer: 'Guest', total: 34.25, items: 2, date: '2025-06-08 12:40' },
-    { id: 'TX12342', customer: 'Michael Brown', total: 156.75, items: 7, date: '2025-06-08 11:20' },
-    { id: 'TX12341', customer: 'Emily Davis', total: 67.30, items: 4, date: '2025-06-08 10:05' },
+    { id: 'TX12345', customer: 'Kurt Waga', total: 124.99, items: 5, date: '2025-06-08 14:30' },
+    { id: 'TX12344', customer: 'Ejine mangcobihon', total: 89.50, items: 3, date: '2025-06-08 13:15' },
+    { id: 'TX12343', customer: 'Zhoulo Pagalan', total: 34.25, items: 2, date: '2025-06-08 12:40' },
+    { id: 'TX12342', customer: 'Mark Olaco', total: 156.75, items: 7, date: '2025-06-08 11:20' },
   ];
 
   return (
@@ -56,12 +52,12 @@ const Dashboard = () => {
         <div className="card border-l-4 border-l-primary-500">
           <div className="flex items-center">
             <div className="bg-primary-100 p-3 rounded-lg">
-              <DollarSign className="h-6 w-6 text-primary-700" />
+              <FaPesoSign className="h-6 w-6 text-primary-700" />
             </div>
             <div className="ml-4">
               <p className="text-sm font-medium text-gray-500">Today's Sales</p>
               <div className="flex items-center">
-                <h3 className="text-lg font-bold text-gray-900">${salesData.today.toFixed(2)}</h3>
+                <h3 className="text-lg font-bold text-gray-900">₱{salesData.today.toFixed(2)}</h3>
                 <div className={`flex items-center ml-2 ${salesTrend ? 'text-success-600' : 'text-error-600'}`}>
                   <TrendingUp className={`h-4 w-4 ${salesTrend ? '' : 'transform rotate-180'}`} />
                   <span className="text-xs font-medium ml-1">{salesData.percentChange}%</span>
@@ -166,7 +162,7 @@ const Dashboard = () => {
                       {transaction.items} items
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-sm font-medium text-gray-900">
-                      ${transaction.total.toFixed(2)}
+                      ₱{transaction.total.toFixed(2)}
                     </td>
                     <td className="px-4 py-3 whitespace-nowrap text-sm text-gray-500">
                       {new Date(transaction.date).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
